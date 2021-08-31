@@ -1,6 +1,6 @@
 // Aqui será o contrato, a interface.
 
-import { Category } from "../entities/Category";
+import { Category } from "../infra/typeorm/entities/Category";
 
 // DTO => Data transfer object, responsável por fazer a transferencia de uma class para outra.
 interface ICreateCategoryDTO {
