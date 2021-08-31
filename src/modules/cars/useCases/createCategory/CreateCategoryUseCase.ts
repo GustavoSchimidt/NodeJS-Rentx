@@ -5,8 +5,8 @@ import { ICategoriesRepository } from "../../repositories/ICategoriesRepository"
 
 // Recebendo o name e a description:
 interface IRequest {
-    name: "string";
-    description: "string";
+    name: string;
+    description: string;
 };
 
 
