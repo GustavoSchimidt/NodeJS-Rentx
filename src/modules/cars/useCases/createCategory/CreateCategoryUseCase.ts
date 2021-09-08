@@ -10,12 +10,6 @@ interface IRequest {
 };
 
 
-/**
- * [X] - Definir o tipo de retorno;
- * [X] - Alterar o retorno de erro;
- * [X] - Acessar o repositório.
- */
-
 @injectable()
 class CreateCategoryUseCase {
     

@@ -6,8 +6,10 @@ import { ICategoriesRepository } from '@modules/cars/repositories/ICategoriesRep
 import { CategoriesRepository } from '@modules/cars/infra/typeorm/repositories/CategoriesRepository';
 import { SpecificationRepository } from '@modules/cars/infra/typeorm/repositories/SpecificationsRepository';
 import { ISpecificationsRepository } from '@modules/cars/repositories/ISpecificationsRepository';
+import { ICarsRepository } from '@modules/cars/repositories/ICarsRepository';
+import { CarsRepository } from '@modules/cars/infra/typeorm/repositories/CarsRepository';
 
-//ICategoriesRepository
+
 container.registerSingleton<ICategoriesRepository>(
     "CategoriesRepository",
     CategoriesRepository 
@@ -22,5 +24,10 @@ container.registerSingleton<IUsersRepository>(
     "UsersRepository",
     UsersRepository
 );
+
+container.registerSingleton<ICarsRepository> (
+    "CarsRepository",
+    CarsRepository
+)
 
 // Esse arquivo irá fazer as injeções/instancias
