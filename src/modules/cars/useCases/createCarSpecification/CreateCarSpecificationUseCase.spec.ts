@@ -1,16 +1,19 @@
 import { CarsRepositoryInMemory } from "@modules/cars/repositories/in-memory/CarsRepositoryInMemory";
+import { SpecificationInMemory } from "@modules/cars/repositories/in-memory/SpecificationInMemory";
 import { AppError } from "@shared/errors/appError";
-import { CresteCarSpecificationUseCase } from "./CresteCarSpecificationUseCase";
+import { CreateCarSpecificationUseCase } from "./CreateCarSpecificationUseCase";
 
 
-let createCarSpecificationUseCase: CresteCarSpecificationUseCase;
+let createCarSpecificationUseCase: CreateCarSpecificationUseCase;
 let carsRepositoryInMemory: CarsRepositoryInMemory;
+let specificationsRepositoryInMemory: SpecificationInMemory;
 
 describe("Create Car Specification", () => {
 
     beforeEach(() => {
         carsRepositoryInMemory = new CarsRepositoryInMemory();
-        createCarSpecificationUseCase = new CresteCarSpecificationUseCase(carsRepositoryInMemory);
+        specificationsRepositoryInMemory = new SpecificationInMemory()
+        createCarSpecificationUseCase = new CreateCarSpecificationUseCase(carsRepositoryInMemory, specificationsRepositoryInMemory);
     });
 
     it("should not be able to add a new specifications to a now existent car", async () => {
@@ -33,8 +36,16 @@ describe("Create Car Specification", () => {
             category_id: "category",
         });
 
-        const specifications_id = ["54321"];
+        const specification = await specificationsRepositoryInMemory.create({
+            description: "Test",
+            name: "NameTest"
+        });
 
-        await createCarSpecificationUseCase.execute({ car_id:car.id, specifications_id });
+        const specifications_id = [specification.id];
+
+        const specificationsCars= await createCarSpecificationUseCase.execute({ car_id:car.id, specifications_id });
+
+        expect(specificationsCars).toHaveProperty("specifications")
+        expect(specificationsCars.specifications.length).toBe(1);
     });
 });
